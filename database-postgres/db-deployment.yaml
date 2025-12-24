@@ -48,17 +48,20 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: cotalk-db-secret  # 해독되어 생성된 Secret 이름
+                  # 해독되어 생성된 Secret 이름
+                  name: cotalk-db-secret
                   key: password
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  ame: cotalk-db-secret  # 해독되어 생성된 Secret 이름
+                  # 해독되어 생성된 Secret 이름
+                  ame: cotalk-db-secret
                   key: user
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: cotalk-db-secret  # 해독되어 생성된 Secret 이름
+                  # 해독되어 생성된 Secret 이름
+                  name: cotalk-db-secret
                   key: db
             - name: PGDATA
               value: /data
