@@ -69,6 +69,8 @@ spec:
               value: "002"
             - name: TZ
               value: Asia/Seoul
+            - name: DB_NAME
+              value: "gotalk"
           image: postgres:18
           name: gotalk-dbpost
 
