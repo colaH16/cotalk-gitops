@@ -46,17 +46,17 @@ spec:
       containers:
         - env:
             - name: POSTGRES_PASSWORD
-              valueFrom:
+              secretKeyRef:
                 secretKeyRef:
                 name: cotalk-db-secret  # 해독되어 생성된 Secret 이름
                 key: password
             - name: POSTGRES_USER
-              valueFrom:
+              secretKeyRef:
                 secretKeyRef:
                 name: cotalk-db-secret  # 해독되어 생성된 Secret 이름
                 key: user
             - name: POSTGRES_DB
-              valueFrom:
+              secretKeyRef:
                 secretKeyRef:
                 name: cotalk-db-secret  # 해독되어 생성된 Secret 이름
                 key: db
