@@ -15,7 +15,7 @@ spec:
     name: monitor
   clusterIP: None  # 각 Pod의 고유 주소(DNS)를 식별하기 위해 Headless로 설정
   selector:
-    app: nats
+    app: gotalk-nats
 ---
 apiVersion: apps/v1
 kind: StatefulSet
