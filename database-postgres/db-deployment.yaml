@@ -75,11 +75,11 @@ spec:
           livenessProbe:
             exec:
               command:
-                - /usr/local/bin/pg_isready
+                - pg_isready
                 - '-U'
-                - $(POSTGRES_USER)
+                - {POSTGRES_USER}
                 - '-d'
-                - $(POSTGRES_DB)
+                - {POSTGRES_DB}
             failureThreshold: 7
             periodSeconds: 5
             successThreshold: 1
@@ -88,11 +88,11 @@ spec:
           readinessProbe:
             exec:
               command:
-                - /usr/local/bin/pg_isready
+                - /usr/bin/pg_isready
                 - '-U'
-                - $(POSTGRES_USER)
+                - {POSTGRES_USER}
                 - '-d'
-                - $(POSTGRES_DB)
+                - {POSTGRES_DB}
             failureThreshold: 3
             periodSeconds: 5
             successThreshold: 1
@@ -101,11 +101,11 @@ spec:
           startupProbe:
             exec:
               command:
-                - /usr/local/bin/pg_isready
+                - pg_isready
                 - '-U'
-                - $(POSTGRES_USER)
+                - {POSTGRES_USER}
                 - '-d'
-                - $(POSTGRES_DB)
+                - {POSTGRES_DB}
             failureThreshold: 50
             periodSeconds: 3
             successThreshold: 1
