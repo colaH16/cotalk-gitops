@@ -24,7 +24,8 @@ spec:
           imagePullPolicy: Always
           env:
             - name: DB_NAME
-              value: "gotalk_v4"
+              value: "gotalk_v5" 
+              # set usercolr (not message color)
             - name: NATS_URL
               value: "nats://gotalk-nats-headless:4222"
             - name: DB_HOST
