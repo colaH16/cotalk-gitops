@@ -18,7 +18,7 @@ spec:
       containers:
         - name: gotalk
           # 아래 주소는 본인 ghcr 주소로 변경하세요!
-          image: ghcr.io/colah16/gotalk:sha-9091f8a
+          image: ghcr.io/colah16/gotalk:sha-55c1555
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
