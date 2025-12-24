@@ -23,6 +23,8 @@ spec:
             - containerPort: 8080
           imagePullPolicy: Always
           env:
+            - name: NATS_URL
+              value: "nats://gotalk-nats-headless:4222"
             - name: DB_HOST
               value: "gotalk-dbpost"
             - name: DB_USER
