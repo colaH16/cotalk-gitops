@@ -67,6 +67,10 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name
+          - name: UMASK
+            value: "002"
+          - name: TZ
+            value: Asia/Seoul
         
         # Liveness/Readiness Probe (헬스 체크)
         livenessProbe:
