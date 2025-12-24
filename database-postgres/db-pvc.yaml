@@ -1,0 +1,61 @@
+
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: cephfs.csi.ceph.com
+    volume.kubernetes.io/provisioner-deletion-secret-name: csi-cephfs-secret
+    volume.kubernetes.io/provisioner-deletion-secret-namespace: cephfs-sc
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+  name: pv-cotalk-db
+spec:
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 20Gi
+  csi:
+    controllerExpandSecretRef:
+      name: csi-cephfs-secret
+      namespace: cephfs-sc
+    driver: cephfs.csi.ceph.com
+    nodeStageSecretRef:
+      name: csi-cephfs-secret
+      namespace: cephfs-sc
+    volumeAttributes:
+      clusterID: 630e582f-2277-4a8b-a902-8ac08536cd62
+      fsName: cephfs-userdata-nvme
+      mounter: kernel
+      staticVolume: "true"
+      rootPath: /_k8s-storage/volumes-hostPath/cotalk/dbpost-data/
+    volumeHandle: pv-cotalk-db-static-v1
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: csi-cephfs-sc-system-kernel-delete
+  volumeMode: Filesystem
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+    pv.kubernetes.io/bind-completed: 'yes'
+    pv.kubernetes.io/bound-by-controller: 'yes'
+    volume.beta.kubernetes.io/storage-provisioner: cephfs.csi.ceph.com
+    volume.kubernetes.io/storage-provisioner: cephfs.csi.ceph.com
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-5"
+
+  name: pvc-cotalk-db
+  namespace: myapps
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+  storageClassName: csi-cephfs-sc-system-kernel-delete
+  volumeMode: Filesystem
+  volumeName: pv-cotalk-db
+

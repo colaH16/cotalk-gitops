@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cotalk-nats-headless
+  namespace: myapps
+  labels:
+    app: cotalk-nats
+spec:
+  ports:
+  - port: 4222
+    name: client
+  - port: 6222
+    name: cluster
+  - port: 8222
+    name: monitor
+  clusterIP: None  # 각 Pod의 고유 주소(DNS)를 식별하기 위해 Headless로 설정
+  selector:
+    app: nats
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: cotalk-nats
+  namespace: myapps
+spec:
+  serviceName: "cotalk-nats-headless"
+  replicas: 3
+  selector:
+    matchLabels:
+      app: cotalk-nats
+  template:
+    metadata:
+      labels:
+        app: cotalk-nats
+    spec:
+      containers:
+      - name: cotalk-nats
+        image: nats:2-alpine
+        ports:
+        - containerPort: 4222
+          name: client
+        - containerPort: 6222
+          name: cluster
+        - containerPort: 8222
+          name: monitor
+        command: ["nats-server"]
+        args:
+          # 각 Pod의 이름을 NATS 서버 이름으로 사용
+          - "--name=$(POD_NAME)" 
+          
+          # 클러스터 이름 설정 (모든 노드가 같아야 함)
+          - "--cluster_name=chat-cluster"
+          
+          # 클러스터링 통신 포트 설정
+          - "--cluster=nats://0.0.0.0:6222"
+          
+          # 다른 친구(노드)들의 주소를 명시 (Full Mesh 구성)
+          # StatefulSet은 도메인이 규칙적이라 이렇게 고정해도 됩니다.
+          - "--routes=nats://nats-0.nats-headless:6222,nats://nats-1.nats-headless:6222,nats://nats-2.nats-headless:6222"
+          
+          # 모니터링 대시보드 포트
+          - "--http_port=8222"
+          
+          
+        env:
+          - name: POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+        
+        # Liveness/Readiness Probe (헬스 체크)
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8222
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8222
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
