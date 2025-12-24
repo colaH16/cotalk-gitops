@@ -24,7 +24,7 @@ metadata:
   namespace: myapps
 spec:
   serviceName: "gotalk-nats-headless"
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: gotalk-nats
