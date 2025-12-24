@@ -9,15 +9,15 @@ metadata:
     "helm.sh/hook-weight": "-5"
   creationTimestamp: null
   labels:
-    io.kompose.service: cotalk-dbpost
-    app: cotalk-dbpost # for cilium dashboard
-  name: cotalk-dbpost
+    io.kompose.service: gotalk-dbpost
+    app: gotalk-dbpost # for cilium dashboard
+  name: gotalk-dbpost
   namespace: myapps
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: cotalk-dbpost
+      io.kompose.service: gotalk-dbpost
   strategy:
     rollingUpdate:
       maxSurge: 0%
@@ -28,8 +28,8 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.network/swarmnet: "true"
-        io.kompose.service: cotalk-dbpost
-        app: cotalk-dbpost
+        io.kompose.service: gotalk-dbpost
+        app: gotalk-dbpost
     spec:
       securityContext:
         runAsUser: 4261
@@ -49,19 +49,19 @@ spec:
               valueFrom:
                 secretKeyRef:
                   # 해독되어 생성된 Secret 이름
-                  name: cotalk-db-secret
+                  name: gotalk-db-secret
                   key: password
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   # 해독되어 생성된 Secret 이름
-                  name: cotalk-db-secret
+                  name: gotalk-db-secret
                   key: user
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   # 해독되어 생성된 Secret 이름
-                  name: cotalk-db-secret
+                  name: gotalk-db-secret
                   key: db
             - name: PGDATA
               value: /data
@@ -70,7 +70,7 @@ spec:
             - name: TZ
               value: Asia/Seoul
           image: postgres:18
-          name: cotalk-dbpost
+          name: gotalk-dbpost
 
           livenessProbe:
             exec:
@@ -114,23 +114,23 @@ spec:
               memory: 1000Mi
           volumeMounts:
             - mountPath: /data
-              name: cotalk-dbpost-hostpath0
+              name: gotalk-dbpost-hostpath0
               mountPropagation: HostToContainer
             - mountPath: /tmp
-              name: cotalk-dbpost-tmpfs0
+              name: gotalk-dbpost-tmpfs0
             - mountPath: /dev/shm
-              name: cotalk-dbpost-tmpfs0
+              name: gotalk-dbpost-tmpfs0
       restartPolicy: Always
       volumes:
         - persistentVolumeClaim:
-            claimName: pvc-cotalk-db
-          name: cotalk-dbpost-hostpath0
+            claimName: pvc-gotalk-db
+          name: gotalk-dbpost-hostpath0
         - emptyDir:
            medium: Memory
-          name: cotalk-dbpost-tmpfs0
+          name: gotalk-dbpost-tmpfs0
         - emptyDir:
            medium: Memory
-          name: cotalk-dbpost-tmpfs1
+          name: gotalk-dbpost-tmpfs1
           # sizeLimit: "256M"
 
 

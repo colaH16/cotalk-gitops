@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: cotalk-nats-headless
+  name: gotalk-nats-headless
   namespace: myapps
   labels:
-    app: cotalk-nats
+    app: gotalk-nats
 spec:
   ports:
   - port: 4222
@@ -20,21 +20,21 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: cotalk-nats
+  name: gotalk-nats
   namespace: myapps
 spec:
-  serviceName: "cotalk-nats-headless"
+  serviceName: "gotalk-nats-headless"
   replicas: 3
   selector:
     matchLabels:
-      app: cotalk-nats
+      app: gotalk-nats
   template:
     metadata:
       labels:
-        app: cotalk-nats
+        app: gotalk-nats
     spec:
       containers:
-      - name: cotalk-nats
+      - name: gotalk-nats
         image: nats:2-alpine
         ports:
         - containerPort: 4222

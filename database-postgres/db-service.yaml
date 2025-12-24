@@ -8,8 +8,8 @@ metadata:
     "helm.sh/hook-weight": "-5"
   creationTimestamp: null
   labels:
-    io.kompose.service: cotalk-dbpost
-  name: cotalk-dbpost
+    io.kompose.service: gotalk-dbpost
+  name: gotalk-dbpost
   namespace: myapps
 spec:
   clusterIP: None
@@ -18,5 +18,5 @@ spec:
       port: 5432
       targetPort: 5432
   selector:
-    io.kompose.service: cotalk-dbpost
+    io.kompose.service: gotalk-dbpost
   type: ClusterIP

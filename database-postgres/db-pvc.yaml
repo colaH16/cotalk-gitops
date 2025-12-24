@@ -9,7 +9,7 @@ metadata:
     volume.kubernetes.io/provisioner-deletion-secret-namespace: cephfs-sc
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-weight": "-5"
-  name: pv-cotalk-db
+  name: pv-gotalk-db
 spec:
   accessModes:
     - ReadWriteOnce
@@ -28,8 +28,8 @@ spec:
       fsName: cephfs-userdata-nvme
       mounter: kernel
       staticVolume: "true"
-      rootPath: /_k8s-storage/volumes-hostPath/cotalk/dbpost-data/
-    volumeHandle: pv-cotalk-db-static-v1
+      rootPath: /_k8s-storage/volumes-hostPath/gotalk/dbpost-data/
+    volumeHandle: pv-gotalk-db-static-v1
   persistentVolumeReclaimPolicy: Retain
   storageClassName: csi-cephfs-sc-system-kernel-delete
   volumeMode: Filesystem
@@ -47,7 +47,7 @@ metadata:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-weight": "-10"
 
-  name: pvc-cotalk-db
+  name: pvc-gotalk-db
   namespace: myapps
 spec:
   accessModes:
@@ -57,5 +57,5 @@ spec:
       storage: 20Gi
   storageClassName: csi-cephfs-sc-system-kernel-delete
   volumeMode: Filesystem
-  volumeName: pv-cotalk-db
+  volumeName: pv-gotalk-db
 

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gotalk-app
+  namespace: myapps
+  labels:
+    app: gotalk
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gotalk
+  template:
+    metadata:
+      labels:
+        app: gotalk
+    spec:
+      containers:
+        - name: gotalk
+          # 아래 주소는 본인 ghcr 주소로 변경하세요!
+          image: ghcr.io/colaH16/gotalk:latest
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+          env:
+            - name: DB_HOST
+              value: "gotalk-dbpost"
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: gotalk-db-secret
+                  key: user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gotalk-db-secret
+                  key: password
