@@ -23,6 +23,10 @@ spec:
             - containerPort: 8080
           imagePullPolicy: Always
           env:
+            - name: UMASK
+              value: "002"
+            - name: TZ
+              value: Asia/Seoul
             - name: DB_NAME
               value: "gotalk_v5" 
               # set usercolr (not message color)
