@@ -77,9 +77,9 @@ spec:
               command:
                 - pg_isready
                 - '-U'
-                - {POSTGRES_USER}
+                - ${POSTGRES_USER}
                 - '-d'
-                - {POSTGRES_DB}
+                - ${POSTGRES_DB}
             failureThreshold: 7
             periodSeconds: 5
             successThreshold: 1
@@ -90,9 +90,9 @@ spec:
               command:
                 - /usr/bin/pg_isready
                 - '-U'
-                - {POSTGRES_USER}
+                - ${POSTGRES_USER}
                 - '-d'
-                - {POSTGRES_DB}
+                - ${POSTGRES_DB}
             failureThreshold: 3
             periodSeconds: 5
             successThreshold: 1
@@ -103,9 +103,9 @@ spec:
               command:
                 - pg_isready
                 - '-U'
-                - {POSTGRES_USER}
+                - ${POSTGRES_USER}
                 - '-d'
-                - {POSTGRES_DB}
+                - ${POSTGRES_DB}
             failureThreshold: 50
             periodSeconds: 3
             successThreshold: 1
