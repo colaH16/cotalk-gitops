@@ -55,7 +55,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   # 해독되어 생성된 Secret 이름
-                  ame: cotalk-db-secret
+                  name: cotalk-db-secret
                   key: user
             - name: POSTGRES_DB
               valueFrom:
