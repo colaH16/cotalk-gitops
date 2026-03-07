@@ -110,8 +110,13 @@ spec:
 #              hostPort: 5432
               protocol: TCP
           resources:
+            limits:
+              # 멀티코어 허용해야 함. 최소 2코어 
+              cpu: 2500m 
+              memory: "600Mi"
             requests:
-              memory: 1000Mi
+              cpu: 250m
+              memory: "60Mi"
           volumeMounts:
             - mountPath: /data
               name: gotalk-dbpost-hostpath0

@@ -36,6 +36,14 @@ spec:
       containers:
       - name: gotalk-nats
         image: nats:2-alpine
+        resources:
+          limits:
+            # 멀티코어 허용해야 함. 최소 2코어 
+            cpu: 2000m 
+            memory: "500Mi"
+          requests:
+            cpu: 40m
+            memory: "50Mi"
         ports:
         - containerPort: 4222
           name: client
