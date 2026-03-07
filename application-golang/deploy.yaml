@@ -44,3 +44,10 @@ spec:
                 secretKeyRef:
                   name: gotalk-db-secret
                   key: password
+          resources:
+            limits:
+              cpu: 200m
+              memory: "200Mi"
+            requests:
+              cpu: 20m
+              memory: "20Mi"
