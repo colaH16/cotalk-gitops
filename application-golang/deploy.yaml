@@ -45,10 +45,21 @@ spec:
                   name: gotalk-db-secret
                   key: password
           resources:
+              # cpu: p30 ? m / p95 ? m / max ? m
+              # mem: p95 ? Mi / max ? Mi
             limits:
-              # 멀티코어 허용해야 함. 최소 2코어 
-              cpu: 2000m 
-              memory: "100Mi"
+              # 멀티코어 허용해야 함. 코어 
+              # cpu, max의 2배 or max +1000 중 큰
+              # mem, max의 1.7배 or + 150 중 큰.
+              cpu: 1001m 
+              memory: "1640Mi"
             requests:
-              cpu: 10m
-              memory: "10Mi"
+              # 최소 수치/ 20 50
+              # cpu, p30의 1배
+              # cpu, 단, p30이 p95의 반보다 작으면 p95
+              # 좀 느리면 되지
+              # mem, p95의 1배
+              cpu: 20m
+              # 이건 제한이 아니다..
+              memory: "50Mi"
+
