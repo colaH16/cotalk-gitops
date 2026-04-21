@@ -37,13 +37,24 @@ spec:
       - name: gotalk-nats
         image: nats:2-alpine
         resources:
+            # cpu: p30 ? m / p95 ? m / max ? m
+            # mem: p95 ? Mi / max ? Mi
           limits:
-            # 멀티코어 허용해야 함. 최소 2코어 
-            cpu: 2000m 
-            memory: "500Mi"
+            # 멀티코어 허용해야 함. 코어 
+            # cpu, max의 2배 or max +1000 중 큰
+            # mem, max의 1.7배 or + 150 중 큰.
+            cpu: 1004m 
+            memory: "212Mi"
           requests:
-            cpu: 40m
-            memory: "50Mi"
+            # 최소 수치/ 20 50
+            # cpu, p30의 1배
+            # cpu, 단, p30이 p95의 반보다 작으면 p95
+            # 좀 느리면 되지
+            # mem, p95의 1배
+            cpu: 20m
+            # 이건 제한이 아니다..
+            memory: "62Mi"
+
         ports:
         - containerPort: 4222
           name: client
