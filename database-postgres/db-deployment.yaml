@@ -116,8 +116,8 @@ spec:
               # 멀티코어 허용해야 함. 코어 
               # cpu, max의 2배 or max +1000 중 큰
               # mem, max의 1.7배 or + 150 중 큰.
-              cpu: 1001m 
-              memory: "164Mi"
+              cpu: 1072m 
+              memory: "212Mi"
             requests:
               # 최소 수치/ 20 50
               # cpu, p30의 1배
